@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "owner": "serel",
+    "name": "ANABBPrev Previdência Comp",
+    "slug": "ANABBPrev",
+    "version": "1.1.2",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#0C2E40",
+    "primaryColor": "#0C2E40",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#0C2E40"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.serel.ANABBPrev",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Permitir $(PRODUCT_NAME) que use o Face ID."
+      },
+      "buildNumber": "8"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0C2E40"
+      },
+      "package": "com.serel.ANABBPrev",
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ],
+      "versionCode": 7
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
+    "plugins": [
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Permitir $(PRODUCT_NAME) que use o Face ID."
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ac18f345-6e45-4014-a24a-8b55d952f042"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ac18f345-6e45-4014-a24a-8b55d952f042"
+    }
+  }
+}
