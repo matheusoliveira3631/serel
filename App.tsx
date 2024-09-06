@@ -1,14 +1,13 @@
-import {GestureHandlerRootView} from "react-native-gesture-handler";
-
 import { StatusBar } from "react-native";
 import FlashMessage from "react-native-flash-message";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AppProvider from "./src/hooks";
 import Routes from "./src/routes";
 
 export default function App() {
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <AppProvider>
         <Routes />
         <FlashMessage

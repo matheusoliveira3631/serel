@@ -176,8 +176,6 @@ export default function Dashboard() {
               />
             )}
 
-            <ButtonsForNavigation />
-
             {subscription?.situacao === "Ativo" && (
               <LastContribute
                 canSee={canSee}

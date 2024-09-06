@@ -47,7 +47,8 @@
           "faceIDPermission": "Permitir $(PRODUCT_NAME) que use o Face ID."
         }
       ],
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-font"
     ],
     "extra": {
       "eas": {
