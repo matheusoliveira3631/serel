@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable global-require */
 /* eslint-disable react/no-unstable-nested-components */
-import React, { useState, useEffect, useCallback } from "react";
-import {
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  BackHandler,
-  Alert,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { Image, Dimensions, TouchableOpacity, BackHandler } from "react-native";
 
 // import { useFonts, Roboto_500Medium } from "@expo-google-fonts/roboto";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+
 import { useTheme } from "styled-components"; // Hook to access the theme
 
 import Dashboard from "../screens/Dashboard";
@@ -25,32 +19,15 @@ const Tab = createBottomTabNavigator();
 
 export default function AppRoutes() {
   const theme = useTheme();
-  const navigation = useNavigation();
   const [activeTab, setActiveTab] = useState("dashboard"); // Track the active button
   const [lastActiveTab, setLastActiveTab] = useState("dashboard");
 
-  function FocusAwareTabScreen({ component: Component, ...props }) {
-    useFocusEffect(
-      useCallback(() => {
-        // Custom logic when the screen is focused
-        setActiveTab(props.name);
-
-        // Cleanup function (if needed)
-        return () => {
-          setLastActiveTab(activeTab);
-        };
-      }, [props.name]),
-    );
-
-    return <Component {...props} />;
-  }
-
-  /* const handlePress = tab => {
+  const handlePress = tab => {
     setLastActiveTab(activeTab); // Set the last active tab
     setActiveTab(tab); // Set the active tab when clicked
   };
 
-   useEffect(() => {
+  useEffect(() => {
     const backAction = () => {
       setActiveTab(lastActiveTab);
       return false;
@@ -65,19 +42,7 @@ export default function AppRoutes() {
     return () => backHandler.remove(); // Cleanup the event listener
   }, [lastActiveTab]);
 
-  useEffect(() => {
-    // Handle custom back button in UI (or screen exit)
-    const unsubscribe = navigation.addListener("beforeRemove", e => {
-      // Prevent default back behavior and show confirmation dialog
-      e.preventDefault();
-
-      setActiveTab(lastActiveTab); // Reset the active tab
-      navigation.dispatch(e.data.action);
-    });
-    return unsubscribe; // Cleanup listener
-  }, [lastActiveTab, navigation]);
-
-  // handlePress("dashboard"); */
+  // handlePress("dashboard");
 
   return (
     /* <Navigator screenOptions={{ headerShown: false }}>
@@ -93,6 +58,7 @@ export default function AppRoutes() {
         headerShown: false,
         tabBarStyle: {
           width: "90%",
+          height: "8%",
           borderRadius: 50,
           // paddingVertical: 10,
           paddingHorizontal: 0,
@@ -102,7 +68,8 @@ export default function AppRoutes() {
             Dimensions.get("window").width / 2 -
             (0.9 * Dimensions.get("window").width) / 2,
           bottom: 20,
-          borderWidth: 0.5,
+          borderWidth: 2,
+          borderTopWidth: 2,
           borderColor: theme.colors.inputBorder,
         },
         tabBarLabelStyle: {
@@ -110,7 +77,7 @@ export default function AppRoutes() {
           fontWeight: 500,
           // fontFamily: "Roboto_500Medium",
           color: theme.colors.textSecondary,
-          marginLeft: "15%",
+          marginLeft: "20%",
           alignSelf: "center",
         },
         tabBarActiveBackgroundColor: theme.colors.backgroundButton,
@@ -122,13 +89,12 @@ export default function AppRoutes() {
     >
       <Tab.Screen
         name="dashboard"
-        component={props => (
-          <FocusAwareTabScreen
-            {...props}
-            component={Dashboard}
-            name="dashboard"
-          />
-        )}
+        component={Dashboard}
+        listeners={({ navigation }) => ({
+          focus: () => {
+            handlePress("dashboard");
+          },
+        })}
         options={{
           tabBarIcon: () => (
             <Image
@@ -147,7 +113,7 @@ export default function AppRoutes() {
                   marginHorizontal: 10,
                 }
               : {},
-          /* tabBarButton: props => (
+          tabBarButton: props => (
             <TouchableOpacity
               {...props} // This ensures default tab behavior is retained
               onPress={() => {
@@ -155,14 +121,12 @@ export default function AppRoutes() {
                 props.onPress(); // Calls the default tab press behavior
               }}
             />
-          ), */
+          ),
         }}
       />
       <Tab.Screen
         name="extract"
-        component={props => (
-          <FocusAwareTabScreen {...props} component={Extract} name="extract" />
-        )}
+        component={Extract}
         options={{
           tabBarIcon: () => (
             <Image
@@ -181,7 +145,7 @@ export default function AppRoutes() {
                   marginHorizontal: 10,
                 }
               : {},
-          /* tabBarButton: props => (
+          tabBarButton: props => (
             <TouchableOpacity
               {...props} // This ensures default tab behavior is retained
               onPress={() => {
@@ -189,18 +153,12 @@ export default function AppRoutes() {
                 props.onPress(); // Calls the default tab press behavior
               }}
             />
-          ), */
+          ),
         }}
       />
       <Tab.Screen
         name="documents"
-        component={props => (
-          <FocusAwareTabScreen
-            {...props}
-            component={Documents}
-            name="documents"
-          />
-        )}
+        component={Documents}
         options={{
           tabBarIcon: () => (
             <Image
@@ -219,7 +177,7 @@ export default function AppRoutes() {
                   marginHorizontal: 10,
                 }
               : {},
-          /* tabBarButton: props => (
+          tabBarButton: props => (
             <TouchableOpacity
               {...props} // This ensures default tab behavior is retained
               onPress={() => {
@@ -227,18 +185,12 @@ export default function AppRoutes() {
                 props.onPress(); // Calls the default tab press behavior
               }}
             />
-          ), */
+          ),
         }}
       />
       <Tab.Screen
         name="register"
-        component={props => (
-          <FocusAwareTabScreen
-            {...props}
-            component={RegisterData}
-            name="register"
-          />
-        )}
+        component={RegisterData}
         options={{
           tabBarIcon: () => (
             <Image
@@ -257,7 +209,7 @@ export default function AppRoutes() {
                   marginHorizontal: 10,
                 }
               : {},
-          /* tabBarButton: props => (
+          tabBarButton: props => (
             <TouchableOpacity
               {...props} // This ensures default tab behavior is retained
               onPress={() => {
@@ -265,18 +217,12 @@ export default function AppRoutes() {
                 props.onPress(); // Calls the default tab press behavior
               }}
             />
-          ), */
+          ),
         }}
       />
       <Tab.Screen
         name="menuStack"
-        component={props => (
-          <FocusAwareTabScreen
-            {...props}
-            component={MenuStack}
-            name="menuStack"
-          />
-        )}
+        component={MenuStack}
         options={{
           tabBarIcon: () => (
             <Image
@@ -295,7 +241,7 @@ export default function AppRoutes() {
                   marginHorizontal: 10,
                 }
               : {},
-          /* tabBarButton: props => (
+          tabBarButton: props => (
             <TouchableOpacity
               {...props} // This ensures default tab behavior is retained
               onPress={() => {
@@ -303,7 +249,7 @@ export default function AppRoutes() {
                 props.onPress(); // Calls the default tab press behavior
               }}
             />
-          ), */
+          ),
         }}
       />
     </Tab.Navigator>

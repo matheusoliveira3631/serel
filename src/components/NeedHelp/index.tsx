@@ -21,7 +21,7 @@ export default function NeedHelp({ setIsVisible }: INeedHelpProps) {
 
   return (
     <ViewNeedHelp
-      style={{ width, marginHorizontal: 0, marginBottom: 80 }}
+      style={{ width, marginHorizontal: 0, marginBottom: "23%" }}
       onPress={() => {
         setIsVisible(state => !state);
       }}
