@@ -2,11 +2,16 @@
 /* eslint-disable global-require */
 /* eslint-disable react/no-unstable-nested-components */
 import React, { useState, useEffect } from "react";
-import { Image, Dimensions, TouchableOpacity, BackHandler } from "react-native";
+import {
+  Image,
+  Dimensions,
+  TouchableOpacity,
+  BackHandler,
+  View,
+} from "react-native";
 
 // import { useFonts, Roboto_500Medium } from "@expo-google-fonts/roboto";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
 import { useTheme } from "styled-components"; // Hook to access the theme
 
 import Dashboard from "../screens/Dashboard";
@@ -27,6 +32,33 @@ export default function AppRoutes() {
     setActiveTab(tab); // Set the active tab when clicked
   };
 
+  function FloatingButton({ ...props }) {
+    return (
+      <View
+        style={{
+          width: activeTab === props.tabName ? "30%" : "16%",
+          marginLeft: props.tabName === "dashboard" ? "5%" : "0%",
+          marginRight: props.tabName === "menuStack" ? "5%" : "0%",
+          backgroundColor:
+            activeTab === props.tabName
+              ? theme.colors.backgroundButton
+              : theme.colors.background,
+          borderRadius: 50,
+          height: "70%",
+          alignSelf: "center",
+        }}
+      >
+        <TouchableOpacity
+          {...props} // This ensures default tab behavior is retained
+          onPress={() => {
+            handlePress("extract"); // Call the function to set the active tab
+            props.onPress(); // Calls the default tab press behavior
+          }}
+        />
+      </View>
+    );
+  }
+
   useEffect(() => {
     const backAction = () => {
       setActiveTab(lastActiveTab);
@@ -42,17 +74,7 @@ export default function AppRoutes() {
     return () => backHandler.remove(); // Cleanup the event listener
   }, [lastActiveTab]);
 
-  // handlePress("dashboard");
-
   return (
-    /* <Navigator screenOptions={{ headerShown: false }}>
-      <Screen name="dashboard" component={Dashboard} />
-      <Screen name="extract" component={Extract} />
-      <Screen name="menu" component={Menu} />
-      <Screen name="documents" component={Documents} />
-      <Screen name="register" component={RegisterData} />
-      <Screen name="configuration" component={Configuration} />
-    </Navigator> */
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
@@ -60,7 +82,6 @@ export default function AppRoutes() {
           width: "90%",
           height: "8%",
           borderRadius: 50,
-          // paddingVertical: 10,
           paddingHorizontal: 0,
           backgroundColor: theme.colors.background,
           position: "absolute",
@@ -73,24 +94,21 @@ export default function AppRoutes() {
           borderColor: theme.colors.inputBorder,
         },
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: 500,
-          // fontFamily: "Roboto_500Medium",
           color: theme.colors.textSecondary,
-          marginLeft: "20%",
+          marginLeft: "23%",
           alignSelf: "center",
         },
-        tabBarActiveBackgroundColor: theme.colors.backgroundButton,
         tabBarIconStyle: {
           alignSelf: "center",
-          marginLeft: 5,
         },
       }}
     >
       <Tab.Screen
         name="dashboard"
         component={Dashboard}
-        listeners={({ navigation }) => ({
+        listeners={() => ({
           focus: () => {
             handlePress("dashboard");
           },
@@ -99,34 +117,24 @@ export default function AppRoutes() {
           tabBarIcon: () => (
             <Image
               source={require("../../assets/home.png")}
-              style={{ width: 20, height: 20 }}
+              style={{ width: 22, height: 22 }}
             />
+          ),
+          tabBarButton: props => (
+            <FloatingButton {...props} tabName="dashboard" />
           ),
           tabBarLabel: activeTab === "dashboard" ? "Início" : "",
           tabBarLabelPosition: "beside-icon",
-          tabBarItemStyle:
-            activeTab === "dashboard"
-              ? {
-                  borderRadius: 50,
-                  height: "70%",
-                  alignSelf: "center",
-                  marginHorizontal: 10,
-                }
-              : {},
-          tabBarButton: props => (
-            <TouchableOpacity
-              {...props} // This ensures default tab behavior is retained
-              onPress={() => {
-                handlePress("dashboard"); // Call the function to set the active tab
-                props.onPress(); // Calls the default tab press behavior
-              }}
-            />
-          ),
         }}
       />
       <Tab.Screen
         name="extract"
         component={Extract}
+        listeners={() => ({
+          focus: () => {
+            handlePress("extract");
+          },
+        })}
         options={{
           tabBarIcon: () => (
             <Image
@@ -136,29 +144,19 @@ export default function AppRoutes() {
           ),
           tabBarLabel: activeTab === "extract" ? "Saldo" : "",
           tabBarLabelPosition: "beside-icon",
-          tabBarItemStyle:
-            activeTab === "extract"
-              ? {
-                  borderRadius: 50,
-                  height: "70%",
-                  alignSelf: "center",
-                  marginHorizontal: 10,
-                }
-              : {},
           tabBarButton: props => (
-            <TouchableOpacity
-              {...props} // This ensures default tab behavior is retained
-              onPress={() => {
-                handlePress("extract"); // Call the function to set the active tab
-                props.onPress(); // Calls the default tab press behavior
-              }}
-            />
+            <FloatingButton {...props} tabName="extract" />
           ),
         }}
       />
       <Tab.Screen
         name="documents"
         component={Documents}
+        listeners={() => ({
+          focus: () => {
+            handlePress("documents");
+          },
+        })}
         options={{
           tabBarIcon: () => (
             <Image
@@ -168,29 +166,19 @@ export default function AppRoutes() {
           ),
           tabBarLabel: activeTab === "documents" ? "Docs" : "",
           tabBarLabelPosition: "beside-icon",
-          tabBarItemStyle:
-            activeTab === "documents"
-              ? {
-                  borderRadius: 50,
-                  height: "70%",
-                  alignSelf: "center",
-                  marginHorizontal: 10,
-                }
-              : {},
           tabBarButton: props => (
-            <TouchableOpacity
-              {...props} // This ensures default tab behavior is retained
-              onPress={() => {
-                handlePress("documents"); // Call the function to set the active tab
-                props.onPress(); // Calls the default tab press behavior
-              }}
-            />
+            <FloatingButton {...props} tabName="documents" />
           ),
         }}
       />
       <Tab.Screen
         name="register"
         component={RegisterData}
+        listeners={() => ({
+          focus: () => {
+            handlePress("register");
+          },
+        })}
         options={{
           tabBarIcon: () => (
             <Image
@@ -200,29 +188,19 @@ export default function AppRoutes() {
           ),
           tabBarLabel: activeTab === "register" ? "Dados" : "",
           tabBarLabelPosition: "beside-icon",
-          tabBarItemStyle:
-            activeTab === "register"
-              ? {
-                  borderRadius: 50,
-                  height: "70%",
-                  alignSelf: "center",
-                  marginHorizontal: 10,
-                }
-              : {},
           tabBarButton: props => (
-            <TouchableOpacity
-              {...props} // This ensures default tab behavior is retained
-              onPress={() => {
-                handlePress("register"); // Call the function to set the active tab
-                props.onPress(); // Calls the default tab press behavior
-              }}
-            />
+            <FloatingButton {...props} tabName="register" />
           ),
         }}
       />
       <Tab.Screen
         name="menuStack"
         component={MenuStack}
+        listeners={() => ({
+          focus: () => {
+            handlePress("menuStack");
+          },
+        })}
         options={{
           tabBarIcon: () => (
             <Image
@@ -232,23 +210,8 @@ export default function AppRoutes() {
           ),
           tabBarLabel: activeTab === "menuStack" ? "Menu" : "",
           tabBarLabelPosition: "beside-icon",
-          tabBarItemStyle:
-            activeTab === "menuStack"
-              ? {
-                  borderRadius: 50,
-                  height: "70%",
-                  alignSelf: "center",
-                  marginHorizontal: 10,
-                }
-              : {},
           tabBarButton: props => (
-            <TouchableOpacity
-              {...props} // This ensures default tab behavior is retained
-              onPress={() => {
-                handlePress("menuStack"); // Call the function to set the active tab
-                props.onPress(); // Calls the default tab press behavior
-              }}
-            />
+            <FloatingButton {...props} tabName="menuStack" />
           ),
         }}
       />

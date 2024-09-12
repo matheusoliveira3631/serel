@@ -32,3 +32,16 @@ export const MenuButtons = styled.TouchableOpacity`
   border: 1px solid ${({ theme }) => theme.colors.secondary};
   /* margin: 0 8px 16px 8px; */
 `;
+
+export const DisabledMenuButtons = styled.View`
+  width: 100px;
+  height: 100px;
+  background-color: ${({ theme }) => theme.colors.backgroundButtonActions};
+  opacity: 0.5
+  padding: 16px;
+
+  border-radius: 16px;
+
+  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  /* margin: 0 8px 16px 8px; */
+`;

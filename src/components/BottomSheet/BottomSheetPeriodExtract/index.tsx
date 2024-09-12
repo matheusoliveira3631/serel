@@ -183,7 +183,11 @@ export default function BottomSheetPeriodExtract({
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           // keyboardVerticalOffset={70}
         >
-          <Container>
+          <Container
+            style={{
+              paddingBottom: 100,
+            }}
+          >
             <Title>Últimos períodos</Title>
 
             <View

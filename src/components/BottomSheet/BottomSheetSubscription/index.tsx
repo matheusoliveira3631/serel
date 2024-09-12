@@ -43,9 +43,13 @@ export default function BottomSheetSubscription({
       bottomSheetRef={bottomSheetRef}
       isVisible={isVisible}
       setIsVisible={setIsVisible}
-      snapPoints="51%"
+      snapPoints="59%"
     >
-      <Container>
+      <Container
+        style={{
+          paddingBottom: 100,
+        }}
+      >
         <Title>Trocar inscrição</Title>
         <Description>
           Selecione a inscrição para alterar os dados do app.
