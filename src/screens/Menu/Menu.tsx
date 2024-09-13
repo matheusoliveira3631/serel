@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 import { ReactNode } from "react";
-import { Dimensions, Image } from "react-native";
+import { Dimensions, Image, View } from "react-native";
 
 import { Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -58,10 +58,9 @@ export default function Menu() {
       route: "register",
       label: "Dados de cadastro",
       icon: (
-        <FontAwesome5
-          name="id-badge"
-          size={24}
-          color={theme.colors.textSecondary}
+        <Image
+          source={require("../../../assets/dados.png")}
+          style={{ width: 22, height: 22 }}
         />
       ),
     },
@@ -165,12 +164,18 @@ export default function Menu() {
                 position: "absolute",
                 width: 36,
                 height: 36,
-                top: -8,
+                top: -10,
                 right: -8,
               }}
             />
-            {button.icon}
-            <ButtonsText>{button.label}</ButtonsText>
+            <View
+              style={{
+                opacity: 0.5,
+              }}
+            >
+              {button.icon}
+              <ButtonsText>{button.label}</ButtonsText>
+            </View>
           </DisabledMenuButtons>
         ))}
       </ListButtons>

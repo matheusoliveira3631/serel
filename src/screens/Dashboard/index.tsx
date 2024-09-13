@@ -16,7 +16,6 @@ import {
   TLastContribution,
 } from "../../services/routes/screens/resources/resources";
 import DefaultLayout from "../../theme/DefaultLayout";
-import ButtonsForNavigation from "./components/ButtonsForNavigation";
 import CarouselContribution from "./components/CarouselContribution";
 import CollectionEvolution from "./components/CollectionEvolution";
 import CollectionEvolutionWatched from "./components/CollectionEvolutionWatched";

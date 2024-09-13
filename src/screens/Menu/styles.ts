@@ -37,7 +37,7 @@ export const DisabledMenuButtons = styled.View`
   width: 100px;
   height: 100px;
   background-color: ${({ theme }) => theme.colors.backgroundButtonActions};
-  opacity: 0.5
+  //opacity: 0.5
   padding: 16px;
 
   border-radius: 16px;

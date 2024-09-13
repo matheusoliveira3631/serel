@@ -1,5 +1,13 @@
+/* eslint-disable global-require */
 import { Dispatch, SetStateAction, useRef } from "react";
-import { Text, FlatList, View, Dimensions, PixelRatio } from "react-native";
+import {
+  Text,
+  FlatList,
+  View,
+  Dimensions,
+  PixelRatio,
+  Image,
+} from "react-native";
 
 import { Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -68,7 +76,7 @@ export default function BottomSheetUser({
       bottomSheetRef={bottomSheetRef}
       isVisible={isVisible}
       setIsVisible={setIsVisible}
-      snapPoints={tamanhoFonte > 18 ? "90%" : "65%"}
+      snapPoints={tamanhoFonte > 18 ? "90%" : "80%"}
     >
       <ImageLogo
         source={theme.title === "dark" ? logoANABBDark : logoANABBLight}
@@ -103,7 +111,15 @@ export default function BottomSheetUser({
                 );
               }
               return (
-                <View style={index % 2 === 1 ? { marginLeft: "auto" } : {}}>
+                <View
+                  style={
+                    index % 2 === 1
+                      ? {
+                          /* marginLeft: "auto" */
+                        }
+                      : {}
+                  }
+                >
                   <InfoFields label={item.label} field={item?.field || ""} />
                 </View>
               );
@@ -120,10 +136,9 @@ export default function BottomSheetUser({
             navigate("extract");
           }}
         >
-          <Feather
-            name="file-text"
-            size={20}
-            color={theme.colors.textPrimary}
+          <Image
+            source={require("../../../../assets/saldo.png")}
+            style={{ width: 22, height: 22 }}
           />
           <ButtonText>Saldo e extrato</ButtonText>
           <Feather
@@ -137,10 +152,9 @@ export default function BottomSheetUser({
             navigate("documents");
           }}
         >
-          <Ionicons
-            name="documents-sharp"
-            size={24}
-            color={theme.colors.textPrimary}
+          <Image
+            source={require("../../../../assets/docs.png")}
+            style={{ width: 22, height: 22 }}
           />
           <ButtonText>Documentos</ButtonText>
           <Feather
@@ -154,10 +168,9 @@ export default function BottomSheetUser({
             navigate("register");
           }}
         >
-          <FontAwesome5
-            name="id-badge"
-            size={20}
-            color={theme.colors.textPrimary}
+          <Image
+            source={require("../../../../assets/dados.png")}
+            style={{ width: 22, height: 22 }}
           />
           <ButtonText>Dados de cadastro</ButtonText>
           <Feather
@@ -175,7 +188,7 @@ export default function BottomSheetUser({
           <ButtonText>Configurações do APP</ButtonText>
           <Feather
             name="chevron-right"
-            size={20}
+            size={22}
             color={theme.colors.textPrimary}
           />
         </ButtonItem>
