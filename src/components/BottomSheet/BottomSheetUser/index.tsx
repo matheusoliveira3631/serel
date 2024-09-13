@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 
-import { Feather, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
 
